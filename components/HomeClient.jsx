@@ -5,8 +5,6 @@ import axios from "axios";
 import faqData from "../public/faq.json";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
-const PUBLIC_TOKEN =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsIlJPTEVTIjpbIkFETUlOIl0sImV4cCI6MTc0Njg3MjQ5MCwiaWF0IjoxNzE1MzM2NDkwfQ.EIYq0nt0SPU8ouHfnMCXNUw7deBp3BuzvSFPo-OXhhw";
 
 export default function HomeClient() {
   const [data, setData] = useState([]);
@@ -24,10 +22,9 @@ export default function HomeClient() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const headers = { Authorization: `Bearer ${PUBLIC_TOKEN}` };
         const [priceRes, apmcRes] = await Promise.all([
-          axios.get(`${BASE_URL}/admin/getAllApmcPrice`, { headers }),
-          axios.get(`${BASE_URL}/admin/getAllApmc`, { headers }),
+          axios.get(`${BASE_URL}/admin/getAllApmcPrice`),
+          axios.get(`${BASE_URL}/admin/getAllApmc`),
         ]);
         setData(priceRes.data?.data || []);
         setFilteredData(priceRes.data?.data || []);

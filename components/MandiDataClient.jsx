@@ -6,12 +6,10 @@ import Link from "next/link";
 import faqData from "../public/faq.json";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
-const PUBLIC_TOKEN =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsIlJPTEVTIjpbIkFETUlOIl0sImV4cCI6MTc2Mzc5MDY5NSwiaWF0IjoxNzMyMjU0Njk1fQ.6zN5pAHdL21Y3BNzrEAshRc8XAy52uBEfHhTdXgxqOg";
 
-export default function MandiDataClient({ mandiName }) {
+export default function MandiDataClient({ mandiName, mandiHindiNameServer }) {
   const [mandiData, setMandiData] = useState([]);
-  const [mandiHindiName, setMandiHindiName] = useState("");
+  const [mandiHindiName, setMandiHindiName] = useState(mandiHindiNameServer || "");
   const [error, setError] = useState({ errors: {}, isError: false });
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -26,13 +24,11 @@ export default function MandiDataClient({ mandiName }) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const headers = { Authorization: `Bearer ${PUBLIC_TOKEN}` };
         const [priceRes, listRes] = await Promise.all([
           axios.get(
-            `${BASE_URL}/admin/getApmcPriceByName?name=${encodeURIComponent(mandiName)}`,
-            { headers }
+            `${BASE_URL}/admin/getApmcPriceByName?name=${encodeURIComponent(mandiName)}`
           ),
-          axios.get(`${BASE_URL}/admin/getAllApmc`, { headers }),
+          axios.get(`${BASE_URL}/admin/getAllApmc`),
         ]);
         const prices = priceRes.data?.data || [];
         setMandiData(prices);
@@ -41,11 +37,11 @@ export default function MandiDataClient({ mandiName }) {
         const match = list.find(
           (m) => (m.apmcNameEng || "").toUpperCase() === mandiName.toUpperCase()
         );
-        setMandiHindiName(prices[0]?.apmc_HindiName || match?.apmcNameHin || mandiName);
+        setMandiHindiName(prices[0]?.apmc_HindiName || match?.apmcNameHin || mandiHindiNameServer || mandiName);
       } catch (e) {
         console.error("Error fetching data:", e);
         setError({ errors: e, isError: true });
-        setMandiHindiName(mandiName);
+        setMandiHindiName(mandiHindiNameServer || mandiName);
       } finally {
         setIsLoading(false);
       }

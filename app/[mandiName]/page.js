@@ -82,7 +82,7 @@ export default async function MandiDataPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <MandiDataClient mandiName={decoded} />
+      <MandiDataClient mandiName={english} mandiHindiNameServer={hindi} />
     </>
   );
 }
