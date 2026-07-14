@@ -89,11 +89,11 @@ export default function AboutUsPage() {
 
       <div className="Our_team_main">
         <div className="container">
-          <div className="title">
+          {/* <div className="title">
             <h2>Our Team</h2>
-          </div>
+          </div> */}
           <div className="Team">
-            <Member
+            {/* <Member
               img="/images/Dinesh.jpg"
               name="Dinesh Kumar"
               role="Founder, MandiBhavJankari"
@@ -104,7 +104,7 @@ export default function AboutUsPage() {
               name="Ajay Kumar"
               role="Co-Founder, MandiBhavJankari"
               text="Ajay focuses on delivering accurate price data to farmers, helping them make informed decisions for better profitability."
-            />
+            /> */}
             {/* <Member
               img="/images/Shashank.jpg"
               name="Shashank Pandey"
