@@ -49,18 +49,12 @@ export default function HomeClient() {
     return () => window.removeEventListener("resize", updateItemsPerPage);
   }, []);
 
-  // Pick `itemsPerPage` random mandis and rotate them every 9 seconds so the
-  // home page tiles always feel fresh.
+  // The user requested to turn off the random mode so that the mandis 
+  // with data appear first consistently, but only show the top 10 mandis on the homepage.
   useEffect(() => {
     if (apmcData.length === 0) return;
-    const pickRandom = () => {
-      const shuffled = apmcData.slice().sort(() => Math.random() - 0.5);
-      setRandomTiles(shuffled.slice(0, itemsPerPage));
-    };
-    pickRandom();
-    const interval = setInterval(pickRandom, 9000);
-    return () => clearInterval(interval);
-  }, [apmcData, itemsPerPage]);
+    setRandomTiles(apmcData.slice(0, 10));
+  }, [apmcData]);
 
   const handleFilterChange = (mandi, crop) => {
     setFilteredData(
