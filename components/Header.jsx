@@ -24,10 +24,22 @@ export default function Header() {
             </div>
           </h1>
 
-          <div className="mobile_app">
+          <div className="mobile_app" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <Link href="/TodayBhav">
               <span></span>आज के भाव
             </Link>
+            <a 
+              href="/MandiBhavJankari.apk" 
+              download 
+              style={{ background: "#43a100", padding: "8px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}
+              aria-label="Download App"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </a>
           </div>
 
           <div id="menu" className={show ? "site-menu show" : "hide"}>
@@ -73,8 +85,8 @@ export default function Header() {
                 </Link>
               </li>
 
-              <li className="download_app">
-                <a href="#">Download app</a>
+              <li className="download_app hide_mobile">
+                <a href="/MandiBhavJankari.apk" download>Download app</a>
               </li>
             </ul>
           </div>
